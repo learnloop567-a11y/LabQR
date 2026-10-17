@@ -1,31 +1,184 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1220"><title>LabQR — Smart Laboratory Guide</title><style>
-:root{--bg:#0b1220;--panel:#121d30;--line:#293850;--text:#eef4ff;--muted:#a8b6cc;--accent:#42d6b5}*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#0b1220,#101c2f);color:var(--text);font:16px/1.55 system-ui,-apple-system,sans-serif}header{padding:24px 18px;background:#101b2d;border-bottom:1px solid var(--line)}.wrap{max-width:900px;margin:auto}.brand{font-size:28px;font-weight:800}header p,.hero p,.card p{color:var(--muted)}.hero{padding:28px 18px 16px}.hero h1{font-size:clamp(28px,6vw,44px);line-height:1.12;margin:0 0 10px}.search{width:100%;padding:14px;border:1px solid var(--line);border-radius:13px;background:#0d1728;color:var(--text);font:inherit;margin-top:20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;padding:14px 18px 35px}.card,.section{border:1px solid var(--line);border-radius:15px;padding:18px;background:var(--panel)}.tag{color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}.card h2{font-size:20px;line-height:1.3}.btn{border:0;border-radius:10px;background:var(--accent);color:#05241e;font-weight:750;padding:11px 14px;cursor:pointer}.empty{margin:0 18px 28px;padding:18px;border:1px dashed var(--line);border-radius:12px;color:var(--muted)}footer{text-align:center;color:var(--muted);padding:20px;border-top:1px solid var(--line)}.detail{padding:20px 18px 40px}.detail h1{font-size:clamp(26px,5vw,38px);line-height:1.2}.section{margin:14px 0}.section h2{margin:0 0 8px;font-size:19px}.section p{white-space:pre-wrap;margin:0;color:#dbe5f5}.back{color:var(--accent)}.notice{color:var(--muted);font-size:13px}details{padding:10px 0;border-bottom:1px solid var(--line)}summary{cursor:pointer}
-</style></head><body><header><div class="wrap"><div class="brand">🧪 LabQR</div><p>Smart Laboratory Guide · Scan. Learn. Practise.</p></div></header><section class="hero wrap"><h1>Your practicals, one scan away.</h1><p>Find experiment aims, apparatus, theory, procedures, observations and viva revision.</p><input id="search" class="search" placeholder="Search experiments…" aria-label="Search experiments"></section><main id="app" class="grid wrap"></main><div id="empty" class="empty wrap" hidden>No matching experiments. Try another search.</div><footer>LabQR · Student laboratory reference</footer><script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LabQR - Smart Laboratory Guide</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0b1220;color:#edf3ff}
+header{padding:28px 20px;background:#121d30;border-bottom:1px solid #293750}
+header h1{margin:0;font-size:34px}
+header p,.muted{color:#aab8ce;line-height:1.7}
+main{max-width:850px;margin:auto;padding:24px 18px}
+input{width:100%;padding:17px;border-radius:15px;border:1px solid #34435f;background:#101b2d;color:white;font-size:17px;margin:12px 0 24px}
+.card{background:#121d30;border:1px solid #2b3b55;padding:20px;border-radius:17px;margin:16px 0}
+.card h2{margin-top:0}
+button,.btn{border:0;border-radius:10px;padding:12px 16px;background:#1e66db;color:white;font-size:15px;cursor:pointer;text-decoration:none;display:inline-block;margin:5px 5px 5px 0}
+section{margin:22px 0;line-height:1.8}
+h3{color:#7fb4ff}
+table{border-collapse:collapse;width:100%;margin:12px 0}
+td,th{border:1px solid #52617a;padding:9px;text-align:center}
+footer{text-align:center;padding:25px;color:#aab8ce}
+.hidden{display:none}
+.back{background:#34435f}
+</style>
+</head>
+<body>
+<header>
+<h1>🧪 LabQR</h1>
+<p>Smart Laboratory Guide · Scan. Learn. Practise.</p>
+</header>
+
+<main>
+<div id="home">
+<h2>Your practicals, one scan away.</h2>
+<p class="muted">Find experiment aims, apparatus, theory, procedures and viva revision.</p>
+<input id="search" placeholder="Search experiments..." oninput="render()">
+<div id="list"></div>
+</div>
+
+<div id="detail" class="hidden"></div>
+</main>
+
+<footer>LabQR · Student Laboratory Reference</footer>
+
+<script>
 const experiments=[
-{slug:"rtd-characteristics",number:"01",title:"Study the Characteristics of RTD",subject:"Temperature & Sensors",aim:"To study RTD characteristics and observe the relationship between temperature and resistance.",apparatus:"RTD, connecting wires, multimeter and thermometer.",theory:"An RTD measures temperature using the predictable change in a metal’s electrical resistance. Increase water temperature gradually and measure resistance at regular intervals.",procedure:"1. Connect the RTD to the multimeter as instructed.
-2. Note initial temperature and resistance.
-3. Heat the water gradually.
-4. Record resistance at regular intervals up to the limit specified by your lab.
-5. Plot resistance against temperature.",observation:"Record actual measured temperature and resistance in your practical journal.",result:"The resistance-temperature characteristics of the RTD are studied from the recorded readings.",conclusion:"For a typical metallic RTD, resistance increases as temperature rises in its normal operating range.",viva:[["What is an RTD?","A temperature sensor that uses a metal’s resistance change."],["What does RTD stand for?","Resistance Temperature Detector."],["Why use a multimeter?","To measure electrical resistance."],["What graph is plotted?","Resistance versus temperature."],["Name another temperature sensor.","Thermistor or thermocouple."]]},
-{slug:"logic-gates-universal-nand",number:"02",title:"Truth Tables of Logic Gates & NAND as a Universal Gate",subject:"Digital Electronics",aim:"To verify NOT, AND, OR, NAND and NOR truth tables and demonstrate NAND as a universal gate.",apparatus:"ICs 7404 (NOT), 7408 (AND), 7432 (OR), 7400 (NAND), 7402 (NOR), digital trainer, wires and logic indicators.",theory:"NOT inverts an input. AND is HIGH only when all inputs are HIGH. OR is HIGH when at least one input is HIGH. NAND is inverted AND; NOR is inverted OR. NAND is universal because NAND combinations can implement basic Boolean functions.",procedure:"1. Switch off power before wiring.
-2. Insert the required IC.
-3. Connect power and ground using the correct pinout.
-4. Apply input combinations and observe output.
-5. Compare observations with truth tables in your journal.
-6. Demonstrate NAND implementations of NOT, AND and OR.",observation:"NOT: 0→1 and 1→0.
-For inputs 00, 01, 10, 11:
-AND: 0,0,0,1
-OR: 0,1,1,1
-NAND: 1,1,1,0
-NOR: 1,0,0,0.",result:"The truth tables of logic gates are verified. NAND can implement other basic logic functions.",conclusion:"NAND is a universal gate.",viva:[["What is a logic gate?","A digital circuit performing a Boolean operation."],["Which IC is commonly used for NAND?","7400."],["AND output for inputs 1 and 1?","1 (HIGH)."],["NOR output for inputs 0 and 0?","1 (HIGH)."],["Why is NAND universal?","Basic Boolean functions can be implemented using NAND gates alone."]]},
-{slug:"flip-flops",number:"03",title:"Study of S-R, J-K, D and T Flip-Flops",subject:"Digital Electronics",aim:"To study S-R, J-K, D-type and T-type flip-flops using the circuit approved by the instructor.",apparatus:"Digital trainer/breadboard, IC 7400 NAND gates, connecting wires and regulated supply, as specified in your lab.",theory:"A flip-flop is a bistable circuit storing one bit. S-R has Set and Reset inputs. J-K toggles when J=K=1. D transfers its input to Q at the active clock event. T toggles when T=1 at the active clock event.",procedure:"1. Assemble the circuit exactly as shown in your approved practical journal.
-2. Check pin connections and supply polarity.
-3. Apply inputs and clock pulses as required.
-4. Record Q and Q̅ outputs.
-5. Compare with expected operation.",observation:"Enter truth tables and observed outputs from your actual lab circuit. The approved circuit diagrams still need to be added; they are not fabricated here.",result:"The operation of S-R, J-K, D and T flip-flops is studied.",conclusion:"Flip-flops are memory elements used in counters, registers and sequential circuits.",viva:[["What is a flip-flop?","A bistable circuit that stores one bit."],["How many stable states?","Two."],["What happens to J-K when J=K=1?","It toggles at the active clock event."],["What does a D flip-flop do?","Stores the D input at the active clock event."],["Where are flip-flops used?","Counters and registers."]]}
+{
+slug:"rtd-characteristics",
+number:"01",
+title:"Study of RTD Characteristics",
+aim:"To study the characteristics of a Resistance Temperature Detector (RTD) and observe how resistance changes with temperature.",
+apparatus:"RTD sensor, connecting wires, multimeter, thermometer and water-heating setup.",
+theory:"An RTD is a temperature sensor whose electrical resistance changes with temperature. For common metallic RTDs, resistance generally increases as temperature increases. The resistance-temperature relationship can be studied by recording resistance at different temperatures.",
+procedure:[
+"Connect the RTD to the measuring instrument.",
+"Record the initial temperature and resistance.",
+"Heat the water gradually and carefully.",
+"Record resistance at regular temperature intervals.",
+"Plot resistance against temperature."
+],
+observation:"Record the temperature and corresponding resistance readings in an observation table.",
+result:"The relationship between RTD resistance and temperature can be studied from the recorded observations.",
+viva:[
+["What is an RTD?","A temperature sensor that measures temperature using changes in electrical resistance."],
+["What does RTD stand for?","Resistance Temperature Detector."],
+["What happens to the resistance of a common metallic RTD when temperature rises?","Its resistance generally increases."],
+["Name one commonly used RTD material.","Platinum."]
+]
+},
+{
+slug:"logic-gates-universal-nand",
+number:"02",
+title:"Logic Gates and Universal NAND Gate",
+aim:"To verify the truth tables of NOT, AND, OR, NAND and NOR gates and demonstrate NAND as a universal gate.",
+apparatus:"Digital trainer kit, connecting wires and ICs 7404, 7408, 7432, 7400 and 7402.",
+theory:"Logic gates perform Boolean operations on binary inputs. NOT reverses an input, AND produces 1 when both inputs are 1, and OR produces 1 when at least one input is 1. NAND is the complement of AND, while NOR is the complement of OR. NAND can be used to implement other basic gates.",
+procedure:[
+"Switch off the trainer supply before making connections.",
+"Insert the required IC and check its pin configuration.",
+"Connect power and ground according to the IC datasheet.",
+"Apply input combinations and observe the outputs.",
+"Compare the outputs with the truth tables."
+],
+observation:"For two-input gates, record outputs for 00, 01, 10 and 11.",
+result:"The truth tables of the selected logic gates can be verified experimentally.",
+viva:[
+["What is a logic gate?","A digital circuit that performs a Boolean operation."],
+["What is the output of an AND gate for inputs 1 and 1?","1."],
+["What is the output of a NAND gate for inputs 1 and 1?","0."],
+["Why is NAND called a universal gate?","Because other basic logic gates can be implemented using NAND gates alone."]
+]
+},
+{
+slug:"flip-flops",
+number:"03",
+title:"Study of Flip-Flops",
+aim:"To study the operation and truth tables of S-R, J-K, D-type and T-type flip-flops.",
+apparatus:"Digital trainer kit, connecting wires and IC 7400 where applicable, along with suitable flip-flop ICs.",
+theory:"A flip-flop is a sequential digital circuit that stores one bit of information. Its output depends on its current inputs and previous state. Different types include S-R, J-K, D and T flip-flops.",
+procedure:[
+"Switch off the supply before making connections.",
+"Identify the required IC and verify its pin configuration.",
+"Connect the circuit according to the practical-journal diagram and IC datasheet.",
+"Apply the required inputs and clock pulses.",
+"Observe Q and complementary Q outputs where available.",
+"Compare the observations with the expected truth table."
+],
+observation:"Record the inputs, clock condition and resulting outputs for each flip-flop.",
+result:"The operation of the selected flip-flops can be studied by comparing observed outputs with their truth tables.",
+viva:[
+["What is a flip-flop?","A bistable sequential circuit that stores one bit."],
+["What does a D flip-flop do?","It transfers the D input to the output at the active triggering event."],
+["What is a clock signal?","A timing signal used to control state changes in synchronous circuits."],
+["How many stable states does a flip-flop have?","Two."]
+]
+}
 ];
-const app=document.getElementById("app"),empty=document.getElementById("empty"),search=document.getElementById("search");function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function render(){let q=search.value.toLowerCase();let list=experiments.filter(e=>(e.title+" "+e.subject+" "+e.aim).toLowerCase().includes(q));app.innerHTML=list.map(e=>`<article class="card"><span class="tag">Experiment ${e.number}</span><h2>${esc(e.title)}</h2><p>${esc(e.subject)}</p><p>${esc(e.aim)}</p><button class="btn" onclick="location.hash='${e.slug}'">Open practical →</button></article>`).join("");empty.hidden=list.length>0;}
-function showDetail(e){document.querySelector(".hero").hidden=true;app.className="detail wrap";app.innerHTML=`<a class="back" href="#">← All experiments</a><p class="tag">Experiment ${e.number} · ${esc(e.subject)}</p><h1>${esc(e.title)}</h1>${[["Aim",e.aim],["Apparatus",e.apparatus],["Theory",e.theory],["Procedure",e.procedure],["Observation",e.observation],["Result",e.result],["Conclusion",e.conclusion]].map(([h,t])=>`<section class="section"><h2>${h}</h2><p>${esc(t)}</p></section>`).join("")}<section class="section"><h2>Viva questions</h2>${e.viva.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("")}</section><p class="notice">Study reference only. Follow your instructor’s circuit diagrams, safety rules and recorded readings.</p>`;empty.hidden=true;}
-function route(){let slug=decodeURIComponent(location.hash.slice(1)),e=experiments.find(x=>x.slug===slug);if(e)showDetail(e);else{document.querySelector(".hero").hidden=false;app.className="grid wrap";render();}}search.addEventListener("input",render);window.addEventListener("hashchange",route);route();
-</script></body></html>
+
+function render(){
+const q=document.getElementById("search").value.toLowerCase();
+document.getElementById("list").innerHTML=experiments
+.filter(e=>(e.title+" "+e.aim+" "+e.slug).toLowerCase().includes(q))
+.map(e=>`<div class="card">
+<h2>Experiment ${e.number}</h2>
+<h3>${e.title}</h3>
+<p class="muted">${e.aim}</p>
+<button onclick="openExperiment('${e.slug}')">View Experiment</button>
+<button onclick="copyLink('${e.slug}')">Copy QR Link</button>
+</div>`).join("");
+}
+
+function openExperiment(slug){
+const e=experiments.find(x=>x.slug===slug);
+if(!e)return;
+document.getElementById("home").classList.add("hidden");
+const d=document.getElementById("detail");
+d.classList.remove("hidden");
+d.innerHTML=`<button class="back" onclick="goHome()">← All Experiments</button>
+<h2>Experiment ${e.number}</h2>
+<h1>${e.title}</h1>
+<section><h3>Aim</h3>${e.aim}</section>
+<section><h3>Apparatus Required</h3>${e.apparatus}</section>
+<section><h3>Theory</h3>${e.theory}</section>
+<section><h3>Procedure</h3><ol>${e.procedure.map(x=>`<li>${x}</li>`).join("")}</ol></section>
+<section><h3>Observations</h3>${e.observation}</section>
+<section><h3>Result</h3>${e.result}</section>
+<section><h3>Viva Questions and Answers</h3>${e.viva.map(v=>`<div class="card"><b>Q. ${v[0]}</b><p>${v[1]}</p></div>`).join("")}</section>
+<button onclick="copyLink('${e.slug}')">Copy Experiment Link</button>`;
+history.pushState({}, "", "?experiment="+e.slug);
+window.scrollTo(0,0);
+}
+
+function goHome(){
+document.getElementById("detail").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
+history.pushState({}, "", location.pathname);
+window.scrollTo(0,0);
+}
+
+function copyLink(slug){
+const url=location.origin+location.pathname+"?experiment="+slug;
+if(navigator.clipboard && window.isSecureContext){
+navigator.clipboard.writeText(url).then(()=>alert("Experiment link copied!"));
+}else{
+prompt("Copy this experiment link:",url);
+}
+}
+
+function loadRoute(){
+const slug=new URLSearchParams(location.search).get("experiment");
+if(slug)openExperiment(slug);
+}
+window.addEventListener("popstate",()=>{
+document.getElementById("detail").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
+const slug=new URLSearchParams(location.search).get("experiment");
+if(slug)openExperiment(slug);
+});
+render();
+loadRoute();
+</script>
+</body>
+</html>
