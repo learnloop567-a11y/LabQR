@@ -100,6 +100,7 @@ title:"Study of Flip-Flops",
 aim:"To study the operation and truth tables of S-R, J-K, D-type and T-type flip-flops.",
 apparatus:"Digital trainer kit, connecting wires and IC 7400 where applicable, along with suitable flip-flop ICs.",
 theory:"A flip-flop is a basic sequential logic circuit that stores one bit of binary information. Unlike a combinational circuit, whose output depends only on its present inputs, a flip-flop can retain its previous state. Flip-flops are constructed using logic gates and are widely used in digital memory and control circuits. The S-R flip-flop has Set and Reset inputs. Set makes the output Q equal to 1, while Reset makes Q equal to 0. When both inputs are inactive, the circuit retains its previous state. In the basic S-R NAND implementation, the condition in which both inputs are 0 is invalid because both outputs can become 1, violating the normal complementary-output condition. The J-K flip-flop improves on the S-R flip-flop. When J and K are both 0, it retains its state; when J is 1 and K is 0, it sets; when J is 0 and K is 1, it resets; and when both J and K are 1, it toggles its output. The D flip-flop has a single data input. On the active clock edge, the value at D is transferred to Q and stored until the next triggering edge. The T flip-flop changes its output when T is 1 at the active clock edge and retains its state when T is 0. A clock signal controls when a flip-flop updates its state. Flip-flops are used in registers, counters, memory units, frequency dividers, and digital control systems. In this experiment, the behaviour of S-R, J-K, D-type, and T-type flip-flops is studied using logic gates and the appropriate circuit connections. Their truth tables are used to verify the output for different input combinations.",
+diagram:"43F9C1F9-30F6-4930-A43A-55AFCCCCEA38.png",
 procedure:[
 "Switch off the supply before making connections.",
 "Identify the required IC and verify its pin configuration.",
@@ -144,6 +145,7 @@ d.innerHTML=`<button class="back" onclick="goHome()">← All Experiments</button
 <section><h3>Aim</h3>${e.aim}</section>
 <section><h3>Apparatus Required</h3>${e.apparatus}</section>
 <section><h3>Theory</h3>${e.theory}</section>
+${e.diagram ? `<section><h3>Diagram</h3><img src="${e.diagram}" alt="${e.title} diagram" style="width:100%;max-width:600px;height:auto;"></section>` : ""}
 <section><h3>Procedure</h3><ol>${e.procedure.map(x=>`<li>${x}</li>`).join("")}</ol></section>
 <section><h3>Observations</h3>${e.observation}</section>
 <section><h3>Result</h3>${e.result}</section>
