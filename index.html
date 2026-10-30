@@ -3,186 +3,1004 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabQR - Smart Laboratory Guide</title>
+<meta name="theme-color" content="#081525">
+<title>LabQR | Instrumentation Engineering Laboratory</title>
+
 <style>
+:root{
+ --bg:#081525;
+ --panel:#102238;
+ --panel2:#142c45;
+ --line:#29445f;
+ --text:#eef6ff;
+ --muted:#a9bdd0;
+ --cyan:#64e0d2;
+ --blue:#67a8ff;
+ --gold:#f4c66b;
+ --pink:#f29ab5;
+ --green:#8de0a7;
+}
+
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#0b1220;color:#edf3ff}
-header{padding:28px 20px;background:#121d30;border-bottom:1px solid #293750}
-header h1{margin:0;font-size:34px}
-header p,.muted{color:#aab8ce;line-height:1.7}
-main{max-width:850px;margin:auto;padding:24px 18px}
-input{width:100%;padding:17px;border-radius:15px;border:1px solid #34435f;background:#101b2d;color:white;font-size:17px;margin:12px 0 24px}
-.card{background:#121d30;border:1px solid #2b3b55;padding:20px;border-radius:17px;margin:16px 0}
-.card h2{margin-top:0}
-button,.btn{border:0;border-radius:10px;padding:12px 16px;background:#1e66db;color:white;font-size:15px;cursor:pointer;text-decoration:none;display:inline-block;margin:5px 5px 5px 0}
-section{margin:22px 0;line-height:1.8}
-h3{color:#7fb4ff}
-table{border-collapse:collapse;width:100%;margin:12px 0}
-td,th{border:1px solid #52617a;padding:9px;text-align:center}
-footer{text-align:center;padding:25px;color:#aab8ce}
-.hidden{display:none}
-.back{background:#34435f}
+html{scroll-behavior:smooth}
+
+body{
+ margin:0;
+ background:
+ radial-gradient(circle at 90% 0%,#173c56 0,transparent 29%),
+ radial-gradient(circle at 0% 35%,#142b46 0,transparent 28%),
+ var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+}
+
+a{color:var(--cyan)}
+
+header{
+ padding:26px 18px 34px;
+ border-bottom:1px solid var(--line);
+ background:linear-gradient(115deg,rgba(10,27,46,.97),rgba(17,48,72,.92));
+}
+
+.wrap{max-width:1120px;margin:auto}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:13px;
+}
+
+.logo{
+ width:52px;
+ height:52px;
+ border-radius:16px;
+ display:grid;
+ place-items:center;
+ background:linear-gradient(135deg,var(--cyan),var(--gold));
+ color:#092033;
+ font-size:27px;
+ box-shadow:0 8px 28px #0005;
+}
+
+.brand h1{margin:0;font-size:29px}
+.brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+.hero{padding:36px 0 8px;max-width:820px}
+
+.eyebrow,.kicker{
+ color:var(--cyan);
+ font-size:11px;
+ font-weight:800;
+ letter-spacing:2px;
+ text-transform:uppercase;
+}
+
+.hero h2{
+ font-size:clamp(34px,6vw,58px);
+ line-height:1.03;
+ margin:13px 0;
+}
+
+.hero h2 span{color:var(--gold)}
+
+.hero p{
+ color:var(--muted);
+ line-height:1.8;
+ font-size:16px;
+ max-width:720px;
+}
+
+.hero-pills{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-top:20px;
+}
+
+.pill{
+ border:1px solid #3a627b;
+ background:#102c42;
+ color:#cde8f4;
+ border-radius:30px;
+ padding:8px 12px;
+ font-size:12px;
+}
+
+main{
+ max-width:1120px;
+ margin:auto;
+ padding:24px 18px 60px;
+}
+
+.intro-grid{
+ display:grid;
+ grid-template-columns:1.35fr .65fr;
+ gap:15px;
+ margin-bottom:28px;
+}
+
+.panel,.card,.section{
+ background:linear-gradient(145deg,rgba(17,39,61,.98),rgba(15,31,50,.98));
+ border:1px solid var(--line);
+ border-radius:18px;
+}
+
+.panel{padding:22px}
+.panel h2,.section h2{margin:8px 0 10px}
+.panel p{color:var(--muted);line-height:1.75;margin-bottom:0}
+
+.stat-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+
+.stat{
+ padding:16px;
+ border-radius:14px;
+ background:#0c1d30;
+ border:1px solid #27435c;
+}
+
+.stat strong{
+ display:block;
+ color:var(--gold);
+ font-size:24px;
+}
+
+.stat span{font-size:11px;color:var(--muted)}
+
+.heading-row{
+ display:flex;
+ align-items:end;
+ justify-content:space-between;
+ gap:12px;
+ flex-wrap:wrap;
+}
+
+.heading-row h2{margin:0 0 5px}
+.muted{color:var(--muted);line-height:1.7}
+
+input{
+ width:100%;
+ padding:15px 17px;
+ border-radius:13px;
+ border:1px solid #35516b;
+ background:#0b1b2d;
+ color:white;
+ font-size:16px;
+ margin:16px 0;
+}
+
+input:focus{outline:2px solid var(--cyan)}
+
+.filters{
+ display:flex;
+ gap:7px;
+ flex-wrap:wrap;
+ margin:0 0 18px;
+}
+
+button{
+ border:1px solid transparent;
+ border-radius:11px;
+ padding:11px 15px;
+ background:#2369ba;
+ color:white;
+ font-weight:700;
+ cursor:pointer;
+}
+
+button:hover{filter:brightness(1.13)}
+
+.filter{
+ background:#122a42;
+ border-color:#35516b;
+ color:#c9d9e8;
+ border-radius:30px;
+ font-size:12px;
+}
+
+.filter.active{
+ background:var(--cyan);
+ border-color:var(--cyan);
+ color:#062231;
+}
+
+.secondary{
+ background:#263e56;
+ border-color:#45617b;
+}
+
+#list{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:14px;
+}
+
+.card{
+ padding:19px;
+ transition:.2s;
+ position:relative;
+ overflow:hidden;
+}
+
+.card:before{
+ content:"";
+ position:absolute;
+ width:110px;
+ height:110px;
+ border-radius:50%;
+ background:#64e0d20c;
+ right:-36px;
+ top:-42px;
+}
+
+.card:hover{
+ transform:translateY(-3px);
+ border-color:var(--cyan);
+ box-shadow:0 14px 32px #0003;
+}
+
+.card-top{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ align-items:center;
+}
+
+.num{
+ font-size:11px;
+ letter-spacing:1.5px;
+ color:var(--cyan);
+ font-weight:800;
+}
+
+.icon-tile{
+ width:42px;
+ height:42px;
+ border-radius:13px;
+ background:#1b3b55;
+ display:grid;
+ place-items:center;
+ font-size:22px;
+}
+
+.card h3{font-size:19px;margin:12px 0 7px}
+
+.card p{
+ font-size:13px;
+ color:var(--muted);
+ line-height:1.65;
+ min-height:43px;
+}
+
+.card-actions{
+ display:flex;
+ gap:6px;
+ flex-wrap:wrap;
+ margin-top:12px;
+}
+
+.card-actions button{font-size:12px;padding:10px 12px}
+
+.hidden{display:none!important}
+.back{background:#263e56;margin-bottom:18px}
+
+.detail-head{
+ padding:24px;
+ border-radius:20px;
+ background:linear-gradient(120deg,#153a52,#142944 65%,#252e43);
+ border:1px solid #3a6176;
+ margin-bottom:15px;
+}
+
+.detail-head h1{
+ font-size:clamp(27px,5vw,42px);
+ margin:10px 0;
+}
+
+.detail-head p{color:#c4d7e5;line-height:1.7;margin-bottom:0}
+
+.tag-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+
+.tag{
+ font-size:11px;
+ border:1px solid #477087;
+ border-radius:30px;
+ padding:6px 9px;
+ color:#d5f6ef;
+}
+
+.section{
+ padding:21px;
+ margin:14px 0;
+ scroll-margin-top:15px;
+}
+
+.section h2{font-size:21px}
+.section h3{color:var(--cyan);margin:18px 0 7px;font-size:16px}
+
+.section p,.section li{color:#d4e1ed;line-height:1.8}
+.section ul,.section ol{padding-left:22px}
+.section li{padding:3px 0}
+
+.definition{
+ border-left:4px solid var(--gold);
+ background:#182d42;
+ padding:15px 17px;
+ border-radius:0 12px 12px 0;
+ color:#e7f2fa;
+ line-height:1.8;
+}
+
+.two-col{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+
+.mini{
+ background:#0c1d30;
+ border:1px solid #29445f;
+ border-radius:13px;
+ padding:14px;
+}
+
+.mini h4{margin:0 0 7px;color:var(--gold)}
+.mini p{margin:0;font-size:13px}
+
+.formula{
+ background:linear-gradient(135deg,#183d50,#102b43);
+ border:2px solid #64e0d2;
+ border-left:6px solid #f4c66b;
+ padding:18px 20px;
+ border-radius:14px;
+ color:#f2fffc;
+ font-family:Georgia,serif;
+ font-size:19px;
+ line-height:1.8;
+ overflow-x:auto;
+ box-shadow:0 8px 24px #0003;
+}
+
+.formula-label{
+ display:block;
+ color:#f4d18b;
+ font:800 11px Arial,sans-serif;
+ letter-spacing:1.7px;
+ text-transform:uppercase;
+ margin-bottom:9px;
+}
+
+.understanding{
+ margin-top:14px;
+ padding:14px 16px;
+ border-radius:12px;
+ background:#102f40;
+ border:1px solid #3d7180;
+ color:#d9f4f0;
+ line-height:1.8;
+}
+
+.understanding b{color:#72e4d5}
+
+.diagram-space{
+ min-height:230px;
+ border:2px dashed #5b8195;
+ border-radius:15px;
+ background:repeating-linear-gradient(135deg,#10263a,#10263a 12px,#112a40 12px,#112a40 24px);
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ padding:25px;
+ color:#c4d8e6;
+}
+
+.diagram-space .symbol{
+ font-size:38px;
+ color:var(--gold);
+ margin-bottom:8px;
+}
+
+.diagram-space small{
+ color:var(--muted);
+ max-width:480px;
+ line-height:1.6;
+}
+
+.diagram-caption{
+ text-align:center;
+ color:var(--muted);
+ font-size:12px;
+ margin-top:8px;
+}
+
+.table-wrap{
+ overflow-x:auto;
+ border:1px solid #35516b;
+ border-radius:12px;
+ margin:14px 0;
+}
+
+table{
+ border-collapse:collapse;
+ width:100%;
+ min-width:480px;
+ background:#0c1d30;
+}
+
+th,td{
+ border:1px solid #304b65;
+ padding:11px;
+ text-align:center;
+ font-size:13px;
+}
+
+th{background:#1b3c57;color:#dff7f4}
+td{color:#d6e3ee}
+.blank{color:#7891a8}
+
+.note{
+ padding:13px 15px;
+ border-radius:11px;
+ background:#2b281c;
+ border:1px solid #6e5b31;
+ color:#f3dfb2;
+ font-size:13px;
+ line-height:1.65;
+}
+
+.viva{
+ border:1px solid #2b4963;
+ border-radius:12px;
+ padding:13px 15px;
+ margin:9px 0;
+ background:#0d2033;
+}
+
+.viva b{color:#f4d18b}
+.viva p{margin:6px 0 0;font-size:13px}
+
+.footer{
+ border-top:1px solid var(--line);
+ padding:24px 18px;
+ text-align:center;
+ color:var(--muted);
+ font-size:12px;
+ line-height:1.8;
+}
+
+@media(max-width:700px){
+ .intro-grid{grid-template-columns:1fr}
+ #list{grid-template-columns:1fr}
+ .two-col{grid-template-columns:1fr}
+ .hero{padding-top:28px}
+ .section{padding:17px}
+}
 </style>
 </head>
+
 <body>
 <header>
-<h1>🧪 LabQR</h1>
-<p>Smart Laboratory Guide · Scan. Learn. Practise.</p>
+ <div class="wrap">
+  <div class="brand">
+   <div class="logo">⚙</div>
+   <div>
+    <h1>LabQR</h1>
+    <p>Smart Laboratory Guide · Instrumentation Engineering</p>
+   </div>
+  </div>
+
+  <div class="hero">
+   <div class="eyebrow">✦ Learn · Explore · Experiment</div>
+   <h2>Understand the signal.<br><span>Control the process.</span></h2>
+   <p>A beginner-friendly laboratory companion for discovering sensors, transducers and measurement systems. Start with what an instrument is, understand its working, then perform the practical step by step.</p>
+   <div class="hero-pills">
+    <span class="pill">🌡 Temperature</span>
+    <span class="pill">💧 Flow</span>
+    <span class="pill">📏 Level</span>
+    <span class="pill">⏱ Pressure</span>
+    <span class="pill">🧪 Viscosity</span>
+   </div>
+  </div>
+ </div>
 </header>
 
 <main>
-<div id="home">
-<h2>Your practicals, one scan away.</h2>
-<p class="muted">Find experiment aims, apparatus, theory, procedures and viva revision.</p>
-<input id="search" placeholder="Search experiments..." oninput="render()">
-<div id="list"></div>
-</div>
+ <div id="home">
+  <div class="intro-grid">
+   <div class="panel">
+    <div class="eyebrow">Welcome to the lab</div>
+    <h2>From a physical quantity to a useful signal.</h2>
+    <p>Instrumentation Engineering is about sensing, measuring, transmitting, indicating and controlling process variables. Explore how a sensor detects a change, how a measuring instrument converts it into a readable value, and how that information is used in industry.</p>
+   </div>
 
-<div id="detail" class="hidden"></div>
+   <div class="panel stat-grid">
+    <div class="stat"><strong>08</strong><span>Experiment guides</span></div>
+    <div class="stat"><strong>24×7</strong><span>Learn at your pace</span></div>
+    <div class="stat"><strong>01</strong><span>Guide per QR</span></div>
+    <div class="stat"><strong>∞</strong><span>Curiosity welcome</span></div>
+   </div>
+  </div>
+
+  <div class="heading-row">
+   <div>
+    <div class="eyebrow">Experiment library</div>
+    <h2>Choose your experiment</h2>
+    <div class="muted">Each guide begins with a plain-language introduction for first-time learners.</div>
+   </div>
+  </div>
+
+  <input id="search" type="search" placeholder="⌕ Search experiment, instrument or measurement..." oninput="render()">
+
+  <div class="filters">
+   <button class="filter active" onclick="setFilter('All',this)">All</button>
+   <button class="filter" onclick="setFilter('Temperature',this)">Temperature</button>
+   <button class="filter" onclick="setFilter('Flow',this)">Flow</button>
+   <button class="filter" onclick="setFilter('Level',this)">Level</button>
+   <button class="filter" onclick="setFilter('Pressure',this)">Pressure</button>
+   <button class="filter" onclick="setFilter('Process',this)">Process</button>
+  </div>
+
+  <div id="list"></div>
+ </div>
+
+ <div id="detail" class="hidden"></div>
 </main>
 
-<footer>LabQR · Student Laboratory Reference</footer>
+<footer class="footer">
+ LabQR · Smart Laboratory Guide<br>
+ Instrumentation Engineering · Learn with clarity. Experiment with confidence.
+</footer>
 
 <script>
-const experiments=[
+const experiments = [
 {
-slug:"rtd-characteristics",
-number:"01",
+slug:"rtd-characteristics",number:"01",category:"Temperature",icon:"🌡️",
 title:"Study of RTD Characteristics",
-aim:"To study the characteristics of a Resistance Temperature Detector (RTD) and observe how resistance changes with temperature.",
-apparatus:"RTD sensor, connecting wires, multimeter, thermometer and water-heating setup.",
-theory:"An RTD (Resistance Temperature Detector) is a temperature sensor used to measure temperature by observing changes in electrical resistance. It works on the principle that the resistance of a metal increases when its temperature increases. Platinum is commonly used as the sensing material because it provides high accuracy, stability, repeatability, and corrosion resistance.RTDs are available in wire-wound and thin-film types. In an RTD, the sensing element is connected to a measuring instrument, such as a digital multimeter, to measure its resistance. The resistance-temperature relationship is given by:Rₜ = R₀ [1 + α(T − T₀)]Here, Rₜ is the resistance at temperature T, R₀ is the resistance at reference temperature T₀, and α is the temperature coefficient of resistance.In this experiment, the RTD is placed in water and connected to a measuring instrument. The initial temperature and resistance are recorded. The water is then heated gradually, and resistance readings are taken at regular temperature intervals. A graph of resistance against temperature is plotted to observe how resistance changes with temperature.RTDs are used in industries, laboratories, chemical plants, and temperature monitoring systems. Their advantages include high accuracy, good stability, and repeatable readings. Their limitations are higher cost, slower response in some applications, and the need for a suitable measuring circuit.",
-diagram:"4645658B-3628-42C7-95BE-2C55B7D20036.png",
-procedure:[
-"Connect the RTD to the measuring instrument.",
-"Record the initial temperature and resistance.",
-"Heat the water gradually and carefully.",
-"Record resistance at regular temperature intervals.",
-"Plot resistance against temperature."
-],
-observation:"Record the temperature and corresponding resistance readings in an observation table.",
-result:"The relationship between RTD resistance and temperature can be studied from the recorded observations.",
-viva:[
-["What is an RTD?","A temperature sensor that measures temperature using changes in electrical resistance."],
-["What does RTD stand for?","Resistance Temperature Detector."],
-["What happens to the resistance of a common metallic RTD when temperature rises?","Its resistance generally increases."],
-["Name one commonly used RTD material.","Platinum."]
-]
+intro:"RTD means Resistance Temperature Detector. It is a temperature sensor that uses the change in electrical resistance of a metal element to determine temperature. In simple words, it converts a temperature change into a measurable resistance change.",
+what:"An RTD is a resistive temperature detector. The sensing element is made from a pure or suitably selected metal whose resistance changes in a predictable way with temperature. The element is placed in thermal contact with the object or fluid being measured; its resistance is then measured by an instrument and related to temperature.",
+why:"RTDs are selected when accurate, stable and repeatable temperature measurement is needed. They are commonly found in process plants, laboratories, HVAC, food processing and pharmaceutical equipment.",
+types:["Wire-wound RTD: a fine metal wire is wound into a coil and supported or enclosed to protect it.","Thin-film RTD: a thin layer of platinum is deposited on an insulating ceramic substrate. It is compact and widely used."],
+theory:"Common RTD materials include nickel (Ni), copper (Cu) and platinum (Pt). Platinum is widely used because it has good chemical stability, repeatability, accuracy and a useful operating range. RTDs are commonly identified by nominal resistance at 0°C; for example, Pt100 has a nominal resistance of 100 Ω at 0°C. For most metallic RTDs, resistance increases as temperature increases, and the relationship is nearly linear over a suitable range. A protective metal sheath may surround the sensing element and lead wires. RTDs are reliable and stable, but can be more expensive and may respond more slowly than some other temperature sensors. They require a measuring current; excessive current produces I²R self-heating and can make the sensor warmer than the medium. Lead-wire resistance can introduce error, especially in a two-wire connection. Three-wire and four-wire measurement arrangements reduce this effect. A low-pass filter may be used in the signal-conditioning circuit to reduce unwanted high-frequency noise. The temperature coefficient depends on the grade and purity of the sensing metal. A common platinum value is approximately 0.00385 Ω/Ω/°C (often written 0.00385 °C⁻¹).",
+formula:"For a suitable range above 0°C: Rₜ = R₀ [1 + αT + βT²]<br>For a full-range standard RTD, use the Callendar–Van Dusen relationship and the coefficients specified for that RTD.",
+variables:"Rₜ = resistance at temperature T; R₀ = nominal resistance at 0°C; T = temperature in °C; α, β and γ = calibration constants.",
+apparatus:["RTD sensor","Connecting wires","Digital multimeter / RTD indicator","Thermometer","Water container or temperature bath with controlled heater"],
+sop:["Check the RTD probe, connecting leads, multimeter and temperature bath for visible damage.","Take water in the container or bath and place the thermometer securely.","Immerse the RTD sensing portion in the water. Do not allow the probe to touch the heater or the container wall.","Connect the RTD to the measuring instrument using the terminals and connection method specified for the laboratory setup.","Switch on the instrument. Note the initial temperature and corresponding resistance after the reading stabilizes.","Increase the water temperature gradually. Follow the instructor's temperature limit and do not heat unattended.","Record the RTD resistance for every 5°C temperature rise, continuing to approximately 70°C if permitted by the practical setup.","Allow each reading to stabilize before recording it. Record the actual temperature and resistance, not estimated values.","Plot resistance R (Ω) on the Y-axis against temperature T (°C) on the X-axis."],
+table:{headers:["Sr. No.","Temperature (°C)","RTD Resistance (Ω)"],rows:Array.from({length:15},(_,i)=>[i+1,"",""])},
+observation:"The supplied RTD practical specifies readings at 5°C intervals, beginning at the initial temperature and continuing to about 70°C. Enter the values measured in your laboratory.",
+calculation:"Temperature coefficient (approximate linear region): α ≈ (R₂ − R₁) / [R₁(T₂ − T₁)]. Use the standard formula and the instrument's nominal RTD value for formal calculations.",
+result:"The resistance of the RTD is expected to increase with temperature. State the trend and calculated value using your measured readings.",
+conclusion:"The resistance–temperature relationship of the metallic RTD is approximately linear over the measured range.",
+viva:[["What does RTD stand for?","Resistance Temperature Detector."],["Which metal is commonly used?","Platinum."],["What is a Pt100?","An RTD with nominal resistance of 100 Ω at 0°C."],["Why is excitation current required?","To measure the voltage/resistance of the resistive sensing element."],["What is self-heating?","Unwanted sensor heating caused by the measurement current."],["Why are 3-wire or 4-wire connections used?","To reduce errors due to lead-wire resistance."]]
 },
 {
-slug:"logic-gates-universal-nand",
-number:"02",
-title:"Logic Gates and Universal NAND Gate",
-aim:"To verify the truth tables of NOT, AND, OR, NAND and NOR gates and demonstrate NAND as a universal gate.",
-apparatus:"Digital trainer kit, connecting wires and ICs 7404, 7408, 7432, 7400 and 7402.",
-theory:"Logic gates are the basic building blocks of digital electronic circuits. They operate on binary inputs, represented by 0 and 1, and produce a binary output according to a logical rule. The NOT gate produces the complement of its input, so an input of 0 gives an output of 1 and an input of 1 gives an output of 0. The AND gate produces an output of 1 only when all its inputs are 1. The OR gate produces an output of 1 when at least one input is 1. The NAND gate is the complement of the AND gate, so its output is 0 only when all its inputs are 1. The NOR gate is the complement of the OR gate, so its output is 1 only when all its inputs are 0. Boolean algebra is used to represent and analyse these logical operations. A NAND gate is called a universal gate because NOT, AND, and OR operations can all be constructed using NAND gates alone. A NOT gate can be made by connecting both inputs of a NAND gate together. An AND gate can be made by connecting the output of a NAND gate to another NAND gate configured as NOT. An OR gate can be made by applying De Morgan’s theorem and using NAND gates as inverters at its inputs. In this experiment, ICs 7404, 7408, 7432, 7400, and 7402 are used to study the NOT, AND, OR, NAND, and NOR gates, and the universal property of the NAND gate is demonstrated. Logic gates are widely used in computers, calculators, digital controllers, and other electronic systems.",
-diagram:"19409672-78DD-4D12-B377-0865C30C14E1.png",
-procedure:[
-"Switch off the trainer supply before making connections.",
-"Insert the required IC and check its pin configuration.",
-"Connect power and ground according to the IC datasheet.",
-"Apply input combinations and observe the outputs.",
-"Compare the outputs with the truth tables."
-],
-observation:"For two-input gates, record outputs for 00, 01, 10 and 11.",
-result:"The truth tables of the selected logic gates can be verified experimentally.",
-viva:[
-["What is a logic gate?","A digital circuit that performs a Boolean operation."],
-["What is the output of an AND gate for inputs 1 and 1?","1."],
-["What is the output of a NAND gate for inputs 1 and 1?","0."],
-["Why is NAND called a universal gate?","Because other basic logic gates can be implemented using NAND gates alone."]
-]
+slug:"thermistor-characteristics",number:"02",category:"Temperature",icon:"🌡️",
+title:"Study of Thermistor Characteristics",
+intro:"A thermistor is a temperature-sensitive resistor. Its name comes from 'thermal' and 'resistor'. It detects temperature because its resistance changes strongly when its temperature changes.",
+what:"A thermistor is a semiconductor temperature sensor usually made from metal-oxide materials. The sensing material is formed into a bead, disc or chip and protected by glass or epoxy. Unlike a metallic RTD, a thermistor generally has a much stronger and nonlinear resistance change for a given temperature change.",
+why:"Thermistors are useful when high sensitivity, small size, quick response and low cost are important. They are found in digital thermometers, medical devices, battery packs, appliances and temperature-protection circuits.",
+types:["NTC (Negative Temperature Coefficient): resistance decreases as temperature increases. This is widely used for temperature measurement.","PTC (Positive Temperature Coefficient): resistance increases as temperature increases. PTC devices are often used for protection, switching and current limiting."],
+theory:"Thermistors have high sensitivity because their resistance changes considerably with temperature. They also have low thermal mass, so they can respond quickly to temperature changes. Their operating range is usually narrower than that of many thermocouples, and their resistance-temperature curve is nonlinear. For an NTC thermistor, a common beta model is R(T) = R₀ exp[B(1/T − 1/T₀)], where T and T₀ are absolute temperatures in kelvin and B is a material constant. NTC resistance falls as temperature rises; PTC resistance rises as temperature rises. The thermistor must be connected to a suitable measuring circuit, often a voltage divider or resistance-measuring instrument. A small excitation current is preferred because current through the thermistor can cause I²R self-heating. The practical notes describe metal-oxide semiconductor material encapsulated in a glass or epoxy bead and note that the resistance-temperature relationship is exponential. The notes also record β = 0.134; retain this as the value written in the supplied practical, but confirm its definition and units with the instructor before using it in a calculation.",
+formula:"NTC beta equation: R(T) = R₀ exp[B(1/T − 1/T₀)]<br>Temperature coefficient: αₜ = (1/R)(dR/dT)",
+variables:"R(T) = resistance at temperature T; R₀ = resistance at reference temperature T₀; B = beta constant; T and T₀ must be in kelvin for the beta equation.",
+apparatus:["Thermistor","Container with water (or the medium specified by the lab)","Digital multimeter","Thermometer","Connecting wires"],
+sop:["Take water in a container and note its initial temperature. Use the laboratory-approved heating arrangement.","Insert the thermistor sensing bead/probe into the water or test medium. Do not allow it to touch the heater or container wall.","Connect the thermistor terminals to the multimeter in resistance mode, using the correct range.","Allow the reading to stabilize and note the initial temperature and resistance.","Change the temperature gradually. As specified in the practical notes, take readings at every 2°C change.","At each step, record both temperature and resistance after stabilization.","Continue through the temperature range approved by the instructor. Do not exceed the sensor or equipment rating.","Plot resistance R against temperature T. For an NTC thermistor, the curve should fall as temperature rises; for a PTC thermistor, it should rise."],
+table:{headers:["Sr. No.","Temperature (°C)","Resistance (Ω)"],rows:Array.from({length:15},(_,i)=>[i+1,"",""])},
+observation:"The supplied notebook instructs taking resistance readings for every 2°C change in temperature. The actual numerical resistance values were not provided in the notebook images, so fill them from your own experiment.",
+calculation:"For an NTC thermistor, use the beta equation only with absolute temperature in kelvin. Determine the resistance change from your measured readings.",
+result:"The resistance-temperature characteristic of the thermistor was studied. For an NTC thermistor, resistance decreases as temperature increases.",
+conclusion:"The resistance-temperature relationship of a thermistor is nonlinear and strongly dependent on temperature.",
+viva:[["What is a thermistor?","A temperature-sensitive resistor."],["What is NTC?","Negative Temperature Coefficient; resistance decreases as temperature increases."],["What is PTC?","Positive Temperature Coefficient; resistance increases as temperature increases."],["Which material is used in a thermistor?","Metal-oxide semiconductor material."],["Why are thermistors highly sensitive?","Their resistance changes considerably with temperature."],["Why should measuring current be low?","To reduce self-heating of the thermistor."]]
 },
 {
-slug:"flip-flops",
-number:"03",
-title:"Study of Flip-Flops",
-aim:"To study the operation and truth tables of S-R, J-K, D-type and T-type flip-flops.",
-apparatus:"Digital trainer kit, connecting wires and IC 7400 where applicable, along with suitable flip-flop ICs.",
-theory:"A flip-flop is a basic sequential logic circuit that stores one bit of binary information. Unlike a combinational circuit, whose output depends only on its present inputs, a flip-flop can retain its previous state. Flip-flops are constructed using logic gates and are widely used in digital memory and control circuits. The S-R flip-flop has Set and Reset inputs. Set makes the output Q equal to 1, while Reset makes Q equal to 0. When both inputs are inactive, the circuit retains its previous state. In the basic S-R NAND implementation, the condition in which both inputs are 0 is invalid because both outputs can become 1, violating the normal complementary-output condition. The J-K flip-flop improves on the S-R flip-flop. When J and K are both 0, it retains its state; when J is 1 and K is 0, it sets; when J is 0 and K is 1, it resets; and when both J and K are 1, it toggles its output. The D flip-flop has a single data input. On the active clock edge, the value at D is transferred to Q and stored until the next triggering edge. The T flip-flop changes its output when T is 1 at the active clock edge and retains its state when T is 0. A clock signal controls when a flip-flop updates its state. Flip-flops are used in registers, counters, memory units, frequency dividers, and digital control systems. In this experiment, the behaviour of S-R, J-K, D-type, and T-type flip-flops is studied using logic gates and the appropriate circuit connections. Their truth tables are used to verify the output for different input combinations.",
-diagram:"43F9C1F9-30F6-4930-A43A-55AFCCCCEA38.png",
-procedure:[
-"Switch off the supply before making connections.",
-"Identify the required IC and verify its pin configuration.",
-"Connect the circuit according to the practical-journal diagram and IC datasheet.",
-"Apply the required inputs and clock pulses.",
-"Observe Q and complementary Q outputs where available.",
-"Compare the observations with the expected truth table."
-],
-observation:"Record the inputs, clock condition and resulting outputs for each flip-flop.",
-result:"The operation of the selected flip-flops can be studied by comparing observed outputs with their truth tables.",
-viva:[
-["What is a flip-flop?","A bistable sequential circuit that stores one bit."],
-["What does a D flip-flop do?","It transfers the D input to the output at the active triggering event."],
-["What is a clock signal?","A timing signal used to control state changes in synchronous circuits."],
-["How many stable states does a flip-flop have?","Two."]
-]
+slug:"thermocouple-characteristics",number:"03",category:"Temperature",icon:"🔥",
+title:"Study of Thermocouple Characteristics",
+intro:"A thermocouple is a temperature sensor made by joining two different metals. When its measuring junction and reference junction are at different temperatures, a small voltage is generated.",
+what:"A thermocouple is a temperature transducer consisting of two dissimilar electrical conductors joined to form a measuring junction. It converts a temperature difference into a small electromotive force (EMF) through the Seebeck effect.",
+why:"Thermocouples are rugged, relatively inexpensive and suitable for a wide temperature range. They are used in furnaces, engines, boilers, industrial ovens and process plants.",
+types:["Type K: Chromel–Alumel; widely used for general-purpose temperature measurement.","Type J: Iron–Constantan; used in suitable moderate-temperature applications.","Type T: Copper–Constantan; often used for lower-temperature measurement."],
+theory:"When two dissimilar metals are joined, a voltage is produced when the two junctions are maintained at different temperatures. This is known as the Seebeck effect. One junction is placed at the point whose temperature is to be measured, while the other junction acts as the reference junction. The output voltage is small and is usually measured in millivolts. The voltage-temperature relationship is nonlinear over a wide operating range, so standard tables or calibration polynomials are used for accurate conversion. For a small temperature interval, the change in voltage can be approximated as ΔV = S × ΔT, where S is the Seebeck coefficient. Cold-junction compensation is required because the reference-junction temperature may not be exactly 0°C. Thermocouples are rugged and can operate over a wide temperature range, but their output is low and they are susceptible to electrical noise. Proper extension wires, polarity and instrument configuration are important for correct readings.",
+formula:"For a small temperature interval: ΔV = S × ΔT<br>Seebeck coefficient: S = ΔV / ΔT",
+variables:"ΔV = change in thermocouple voltage (V); S = Seebeck coefficient (V/°C); ΔT = temperature difference (°C).",
+apparatus:["Thermocouple sensor","Water container or temperature bath","Digital multimeter with millivolt range","Thermometer","Connecting wires"],
+sop:["Identify the thermocouple type and its positive and negative leads.","Take water in a container and note the initial temperature.","Place the measuring junction in the water without allowing it to touch the heater or container wall.","Connect the thermocouple to the multimeter in the correct polarity and suitable millivolt range.","Allow the reading to stabilize and record the initial temperature and output voltage.","Increase the temperature gradually using the approved laboratory setup.","Record the output voltage for every 2°C temperature change, as specified in the practical notes.","Plot output voltage (mV) against temperature (°C)."],
+table:{headers:["Sr. No.","Temperature (°C)","Output voltage (mV)"],rows:Array.from({length:15},(_,i)=>[i+1,"",""])},
+observation:"Record the temperature and corresponding thermocouple output voltage in millivolts. The supplied notes explain that the voltage is nonlinear over a wide temperature range.",
+calculation:"For a small interval, S ≈ ΔV/ΔT. Use the thermocouple type's standard calibration table for accurate temperature conversion.",
+result:"The output voltage of the thermocouple changes with the temperature difference between its junctions.",
+conclusion:"The thermocouple converts a temperature difference into a small electrical voltage through the Seebeck effect.",
+viva:[["What is a thermocouple?","A temperature sensor made from two dissimilar metals."],["What is the Seebeck effect?","Generation of voltage due to a temperature difference between junctions."],["What is the output of a thermocouple?","A small voltage, usually in millivolts."],["What is cold-junction compensation?","Compensation for the reference-junction temperature."],["What is the Seebeck coefficient?","Voltage change per unit temperature difference."],["Why is polarity important?","Incorrect polarity can reverse the measured voltage sign."]]
+},
+{
+slug:"orifice-plate-flow-meter",number:"04",category:"Flow",icon:"💧",
+title:"Study of Orifice Plate as a Flow Meter",
+intro:"An orifice plate is a thin plate with a precisely made opening fitted inside a pipe. It measures the flow rate of a liquid or gas by creating a pressure difference across the opening.",
+what:"An orifice plate is a differential-pressure flow-measuring device. It contains a restricted opening through which fluid passes. The pressure difference between the upstream and downstream sides is used to determine the flow rate.",
+why:"Orifice plates are simple, economical and widely used in industrial pipelines, water distribution, chemical plants and process industries.",
+types:["Concentric orifice: a circular opening at the centre of the plate; commonly used for clean fluids.","Eccentric orifice: an off-centre circular opening; useful in certain liquid or gas services.","Segmental orifice: an opening shaped like a segment of a circle; used in selected applications involving suspended matter."],
+theory:"The working principle of an orifice plate is based on Bernoulli's theorem and the continuity equation. When fluid flows through the restricted opening, its velocity increases and its static pressure decreases. The fluid jet contracts after passing through the orifice and reaches a minimum cross-sectional area at a location called the vena contracta. Pressure taps are provided to measure the pressure difference across the plate. This differential pressure is measured using a U-tube manometer or a differential pressure transmitter. The flow rate is calculated from the pressure difference. Under suitable conditions, the flow rate is proportional to the square root of the differential pressure. An orifice plate is compact, inexpensive and easy to install. However, it causes a comparatively high permanent pressure loss because of turbulence and energy dissipation. Correct installation, suitable pressure tapping and proper flow conditions are important for reliable measurement.",
+formula:"Continuity equation: Q = A₁V₁ = A₂V₂<br>Flow relationship: Q ∝ √ΔP<br>Manometer difference: Δh = |h₁ − h₂|",
+variables:"Q = volumetric flow rate (m³/s); A₁, A₂ = cross-sectional areas (m²); V₁, V₂ = fluid velocities (m/s); ΔP = pressure difference (Pa); h₁, h₂ = manometer readings.",
+apparatus:["Orifice plate flow-measuring setup","Rotameter","U-tube manometer","Water pump and tank","Connecting pipes and valves"],
+sop:["Identify the orifice plate, pressure taps, U-tube manometer, rotameter and pump.","Check that the water tank contains sufficient water.","Ensure that all pipe connections are secure and the manometer tubes are properly connected.","Remove trapped air bubbles from the manometer tubes according to the laboratory procedure.","Start the pump and allow the water flow to become steady.","Note the rotameter reading and the corresponding manometer levels.","Repeat the observations for different flow rates by adjusting the control valve gradually.","Record the readings and calculate the differential manometer head.","Compare the flow behaviour indicated by the orifice plate with the rotameter readings."],
+table:{headers:["Sr. No.","Rotameter reading","Manometer h₁","Manometer h₂","Δh"],rows:Array.from({length:10},(_,i)=>[i+1,"","","",""])},
+observation:"Record the actual rotameter readings and manometer levels h₁ and h₂. Calculate Δh = |h₁ − h₂| for every observation.",
+calculation:"Differential head: Δh = |h₁ − h₂|. The actual flow-rate calculation depends on the orifice dimensions, fluid properties and discharge coefficient supplied for the laboratory setup.",
+result:"The orifice plate was studied as a differential-pressure flow meter. The pressure difference changes with the flow rate.",
+conclusion:"The orifice plate measures flow by producing a pressure difference across a restricted opening.",
+viva:[["What is the principle of an orifice plate?","Bernoulli's theorem and the continuity equation."],["What type of flow meter is an orifice plate?","Differential-pressure flow meter."],["What is vena contracta?","The region where the fluid jet reaches its minimum cross-sectional area after the orifice."],["Which instrument measures pressure difference?","U-tube manometer."],["Name three types of orifice plates.","Concentric, eccentric and segmental."],["What is the relationship between flow and differential pressure?","Flow is proportional to the square root of differential pressure under suitable conditions."]]
+},
+{
+slug:"venturi-tube-flow-meter",number:"05",category:"Flow",icon:"🌊",
+title:"Study of Venturi Tube as a Flow Meter",
+intro:"A Venturi tube is a device used to measure the flow rate of fluid through a pipe. It has a gradually narrowing section, a narrow throat and a gradually widening section.",
+what:"A Venturi meter is a differential-pressure flow-measuring device. It uses the change in fluid velocity and pressure produced by a change in the cross-sectional area of a pipe.",
+why:"Venturi meters are used in water supply systems, industrial pipelines, chemical plants and fluid-flow laboratories. Their gradual shape helps recover pressure and reduces permanent pressure loss compared with an orifice plate.",
+types:["Classical Venturi tube: consists of a converging section, cylindrical throat and diverging section.","Venturi nozzle: combines a smooth inlet contraction with a throat and is used in suitable flow applications."],
+theory:"The Venturi tube works on Bernoulli's theorem and the continuity equation. It consists of three main sections. In the converging section, the pipe area decreases, causing the fluid velocity to increase and static pressure to decrease. At the throat, the area is minimum, velocity is maximum and pressure is lower than at the inlet. In the diverging section, the area gradually increases, so velocity decreases and some pressure is recovered. The pressure difference between the inlet and throat is measured using a U-tube manometer or pressure transmitter. This pressure difference is used to calculate the flow rate. The Venturi meter generally produces less permanent pressure loss than an orifice plate because its gradual expansion reduces sudden flow separation. It is commonly used for liquid-flow measurement where reliable measurement and lower energy loss are important.",
+formula:"Continuity equation: Q = A₁V₁ = A₂V₂<br>Bernoulli equation: P₁ + ½ρV₁² = P₂ + ½ρV₂² + ρg(z₂ − z₁)<br>For a horizontal ideal flow: P₁ + ½ρV₁² = P₂ + ½ρV₂²",
+variables:"Q = volumetric flow rate; A = cross-sectional area; V = fluid velocity; P = static pressure; ρ = fluid density; g = acceleration due to gravity; z = elevation.",
+apparatus:["Venturi tube flow setup","U-tube manometer","Water pump","Rotameter","Measuring tank and stopwatch","Connecting pipes and valves"],
+sop:["Identify the converging section, throat and diverging section of the Venturi tube.","Check the water supply and the connections to the manometer.","Remove trapped air from the manometer lines according to the laboratory instructions.","Start the pump and allow the flow to become steady.","Note the rotameter reading and manometer levels.","Measure the time required to collect a known volume of water in the measuring tank, if required by the setup.","Repeat the observations for different flow rates.","Calculate the differential head and experimental flow rate using the supplied laboratory data.","Compare the calculated flow rate with the rotameter reading."],
+table:{headers:["Sr. No.","Rotameter reading","Manometer h₁","Manometer h₂","Time (s)"],rows:Array.from({length:10},(_,i)=>[i+1,"","","",""])},
+observation:"Record the actual rotameter reading, manometer levels and collection time. Use the measuring-tank volume to calculate the actual flow rate when required.",
+calculation:"Experimental flow rate: Q = Volume collected / Time taken. For a horizontal Venturi setup, the pressure difference is related to the velocity difference by Bernoulli's equation.",
+result:"The Venturi tube was studied as a flow-measuring device. The pressure difference between the inlet and throat was observed for different flow rates.",
+conclusion:"The Venturi tube measures fluid flow using the relationship between pressure and velocity.",
+viva:[["What is the working principle of a Venturi tube?","Bernoulli's theorem and continuity equation."],["Name its three sections.","Converging section, throat and diverging section."],["Where is the velocity maximum?","At the throat."],["What happens to pressure at the throat?","Static pressure decreases."],["Which instrument measures pressure difference?","U-tube manometer."],["What is the advantage of a Venturi meter over an orifice plate?","It generally has lower permanent pressure loss."]]
+},
+{
+slug:"capacitive-level-measurement",number:"06",category:"Level",icon:"📏",
+title:"Level Measurement Using Capacitive Sensor",
+intro:"A capacitive level sensor detects the level of liquid inside a tank by measuring a change in capacitance. It uses the difference in dielectric properties between air and the liquid.",
+what:"A capacitive sensor is a sensing device that detects changes in capacitance. A capacitor consists of two conducting electrodes separated by an insulating material called a dielectric. In level measurement, the liquid changes the effective dielectric medium around the sensing element.",
+why:"Capacitive level sensors are used in water tanks, chemical storage vessels, food-processing systems and industrial automation. They can provide continuous level measurement without requiring a moving float.",
+types:["Contact capacitive sensor: the sensing electrode is in contact with the material or liquid, with suitable insulation.","Non-contact capacitive sensor: detects material or liquid level through a suitable non-metallic tank wall."],
+theory:"Capacitance is the ability of a system to store electric charge. For a parallel-plate capacitor, capacitance depends on the area of the plates, the distance between them and the dielectric material between the plates. When the liquid level rises between the sensing electrodes, more of the sensing region is occupied by liquid instead of air. Since the liquid and air have different relative permittivities, the effective capacitance changes. The electronic circuit detects this change and converts it into a level indication. In the supplied practical, the sensor is fitted to a level-measurement kit and the tank level is increased in steps. The corresponding dielectric-constant readings are recorded. Capacitive sensors are useful for continuous level measurement and automation. Their readings can be affected by changes in liquid composition, temperature, deposits on the probe and incorrect calibration. The exact response depends on the electrode arrangement and sensor design.",
+formula:"Parallel-plate capacitance: C = εᵣ ε₀ A / d",
+variables:"C = capacitance (farad); ε₀ = permittivity of free space (8.854 × 10⁻¹² F/m); εᵣ = relative permittivity of dielectric; A = plate area (m²); d = distance between plates (m).",
+apparatus:["Level-measurement kit","Capacitive level sensor","Water","Measuring scale or level indicator","Connecting wires and display unit"],
+sop:["Identify the level tank, capacitive sensor and display unit.","Check the sensor mounting and electrical connections.","Ensure that the tank is empty or at the initial level specified by the instructor.","Switch on the level-measurement kit and note the initial reading.","Fill the tank gradually in measured increments of 10 cm.","At every level, record the corresponding dielectric-constant or capacitance reading displayed by the setup.","Continue until the maximum permitted level of 100 cm is reached.","Plot the sensor reading against liquid level."],
+table:{headers:["Sr. No.","Level in tank (cm)","Dielectric constant"],rows:[[1,10,18.1],[2,20,29.3],[3,30,40],[4,40,50],[5,50,62.4],[6,60,73.3],[7,70,82.3],[8,80,95],[9,90,104.5],[10,100,115]]},
+observation:"The following readings are transcribed from the supplied practical notebook: 10 cm–18.1, 20 cm–29.3, 30 cm–40, 40 cm–50, 50 cm–62.4, 60 cm–73.3, 70 cm–82.3, 80 cm–95, 90 cm–104.5 and 100 cm–115.",
+calculation:"Plot level (cm) on the X-axis and the measured dielectric-constant or sensor reading on the Y-axis. Use the sensor's calibration information if capacitance in farads is required.",
+result:"The sensor reading increases as the liquid level increases in the supplied practical observations.",
+conclusion:"The capacitance of the sensing arrangement changes with liquid level because the effective dielectric medium changes.",
+viva:[["What is the principle of a capacitive level sensor?","Change in capacitance due to a change in the dielectric medium."],["What is the SI unit of capacitance?","Farad (F)."],["What is the formula for parallel-plate capacitance?","C = εᵣ ε₀ A / d."],["What is dielectric constant?","Relative permittivity of a material."],["What happens to the sensor reading as liquid level increases in this setup?","It increases."],["What is the function of the dielectric?","It affects the capacitance between the electrodes."]]
+},
+{
+slug:"pressure-measurement",number:"07",category:"Pressure",icon:"⏱️",
+title:"Pressure Measurement Using Diaphragm",
+intro:"A diaphragm pressure sensor uses a thin, flexible membrane that bends when pressure is applied. The amount of movement is related to the applied pressure.",
+what:"A diaphragm is a thin flexible circular plate fixed around its edges. When pressure acts on one side, the diaphragm deflects. This mechanical movement can be measured directly or converted into an electrical signal.",
+why:"Diaphragm pressure sensors are used in industrial process control, pneumatic systems, hydraulic systems, medical instruments and pressure transmitters.",
+types:["Flat diaphragm: a flat circular membrane that deflects under pressure.","Corrugated diaphragm: a shaped membrane designed to provide suitable flexibility and sensitivity."],
+theory:"A diaphragm is an elastic sensing element used for measuring pressure. When pressure is applied, a force acts over its effective area and produces deflection. The amount of deflection depends on the applied pressure, material, thickness, diameter and boundary conditions. The diaphragm is generally clamped or fixed around its circumference. Its movement may be transferred through a mechanical linkage to a pointer or connected to a displacement transducer to produce an electrical output. Common diaphragm materials include bronze, phosphor bronze, beryllium copper and stainless steel. The supplied practical uses a control-valve or pneumatic setup and observes diaphragm travel at different pressure settings. Pressure is recorded in psig, which means pounds per square inch gauge. Gauge pressure is measured relative to atmospheric pressure. Diaphragm instruments are compact and sensitive, but they must be used within their specified pressure range to avoid permanent deformation or damage.",
+formula:"Pressure: P = F / A<br>Force: F = P × A",
+variables:"P = pressure (Pa); F = applied force (N); A = effective area of diaphragm (m²).",
+apparatus:["Control valve kit","Pneumatic pipe and connections","Diaphragm pressure sensor or diaphragm assembly","Pressure source / compressor","Pressure gauge and measuring scale, as provided"],
+sop:["Identify the diaphragm assembly, pneumatic pipe, control valve and pressure gauge.","Check the pipe connections and diaphragm setup before applying pressure.","Keep the control valve in the initial position specified by the instructor.","Switch on the compressor or approved pressure source.","Increase the pressure gradually in the specified steps: 3, 6, 9, 12 and 15 psig.","At each pressure setting, observe and record the corresponding diaphragm travel.","Do not exceed the maximum pressure permitted by the apparatus.","Reduce the pressure gradually and switch off the pressure source after completing the readings."],
+table:{headers:["Sr. No.","Pressure (psig)","Diaphragm travel (mm)"],rows:[[1,3,""],[2,6,""],[3,9,""],[4,12,""],[5,15,""]]},
+observation:"The supplied notebook specifies pressure settings of 3, 6, 9, 12 and 15 psig. Enter the corresponding diaphragm travel measured during the experiment.",
+calculation:"Pressure in SI units: P(Pa) = P(psi) × 6894.76. Use the actual diaphragm area and travel calibration if force or displacement calculations are required.",
+result:"The diaphragm pressure-measurement device was studied and diaphragm movement was observed at different pressure settings.",
+conclusion:"The diaphragm converts applied pressure into mechanical deflection that can be measured.",
+viva:[["What is a diaphragm?","A thin flexible element that deflects under applied pressure."],["What is the function of a diaphragm?","It senses pressure by producing mechanical deflection."],["What does psig mean?","Pounds per square inch gauge."],["Name two diaphragm materials.","Bronze and stainless steel."],["What is sensitivity?","Change in output divided by change in input."],["What happens when pressure increases?","Diaphragm deflection generally increases within its operating range."]]
+},
+{
+slug:"ostwald-viscometer",number:"08",category:"Process",icon:"🧪",
+title:"Determination of Viscosity Using Ostwald Viscometer",
+intro:"An Ostwald viscometer is a glass instrument used to compare the viscosity of liquids. It measures the time taken by a liquid to flow through a narrow capillary between two marked positions.",
+what:"Viscosity is a property of a fluid that describes its resistance to flow. An Ostwald viscometer is a capillary-type instrument that determines the viscosity of an unknown liquid by comparing its flow time with that of a reference liquid, usually distilled water.",
+why:"Viscosity measurement is important in chemical industries, pharmaceuticals, paints, oils, food processing and quality-control laboratories.",
+types:["Dynamic viscosity: measures a fluid's internal resistance to flow; SI unit is pascal-second (Pa·s).","Kinematic viscosity: dynamic viscosity divided by density; SI unit is square metre per second (m²/s)."],
+theory:"The Ostwald viscometer works on the principle of capillary flow under gravity. It consists of a U-shaped glass tube with a bulb and a narrow capillary. A fixed volume of liquid is drawn above an upper timing mark. The liquid is then allowed to flow freely through the capillary, and the time taken for the meniscus to travel between two marked positions is measured using a stopwatch. For the same viscometer and controlled temperature, the flow time is related to the liquid's viscosity and density. Therefore, the viscosity of an unknown liquid can be calculated by comparing its flow time with that of a reference liquid. Temperature control is essential because viscosity changes with temperature. The viscometer must be clean and free from air bubbles. The liquid should flow naturally without applying pressure during the timing interval. Repeated readings are taken and the mean flow time is used to improve reliability.",
+formula:"Relative viscosity: η₁ / η₂ = (ρ₁ t₁) / (ρ₂ t₂)<br>Therefore: η₁ = η₂ × (ρ₁ t₁) / (ρ₂ t₂)",
+variables:"η₁ = viscosity of test liquid; η₂ = viscosity of reference liquid; ρ₁, ρ₂ = respective densities; t₁, t₂ = respective flow times.",
+apparatus:["Ostwald viscometer","Stopwatch","Thermostatic bath","Pipette","Rubber tubing","Distilled water","Given test liquid"],
+sop:["Clean the Ostwald viscometer thoroughly and ensure it is dry and free from contamination.","Introduce the required quantity of distilled water into the viscometer using a pipette.","Place the viscometer in the thermostatic bath and allow the liquid to reach the specified temperature.","Using rubber tubing, raise the liquid above the upper timing mark without introducing air bubbles.","Allow the liquid to flow freely through the capillary.","Start the stopwatch when the meniscus crosses the upper mark and stop it when it crosses the lower mark.","Repeat the measurement at least three times and calculate the mean flow time.","Empty and clean the viscometer as instructed. Repeat the same procedure using the given liquid at the same temperature.","Record the flow times and use the reference-liquid data to determine the viscosity of the given liquid."],
+table:{headers:["Liquid","Trial 1 (s)","Trial 2 (s)","Trial 3 (s)","Mean time (s)"],rows:[["Distilled water","","","",""],["Given liquid","","","",""]]},
+observation:"Record three flow-time readings for distilled water and the given liquid. Also record the bath temperature and the reference-liquid density and viscosity supplied by the laboratory.",
+calculation:"Use η₁/η₂ = (ρ₁t₁)/(ρ₂t₂). Ensure that both liquids are measured using the same viscometer at the same temperature.",
+result:"The viscosity of the given liquid is determined by comparing its flow time with that of the reference liquid.",
+conclusion:"The Ostwald viscometer determines liquid viscosity by comparing capillary flow times under controlled conditions.",
+viva:[["What is viscosity?","Resistance offered by a fluid to the relative motion of its adjacent layers."],["What is the principle of an Ostwald viscometer?","Comparison of flow times through the same capillary under the same conditions."],["Why is temperature controlled?","Because viscosity changes with temperature."],["Which instrument measures flow time?","Stopwatch."],["What is the SI unit of dynamic viscosity?","Pascal-second (Pa·s)."],["Why must the viscometer be clean?","Contamination can affect the flow and timing measurements."]]
 }
 ];
+let activeFilter = "All";
 
-function render(){
-const q=document.getElementById("search").value.toLowerCase();
-document.getElementById("list").innerHTML=experiments
-.filter(e=>(e.title+" "+e.aim+" "+e.slug).toLowerCase().includes(q))
-.map(e=>`<div class="card">
-<h2>Experiment ${e.number}</h2>
-<h3>${e.title}</h3>
-<p class="muted">${e.aim}</p>
-<button onclick="openExperiment('${e.slug}')">View Experiment</button>
-<button onclick="copyLink('${e.slug}')">Copy QR Link</button>
-</div>`).join("");
-}
+function setFilter(category, button) {
+  activeFilter = category;
 
-function openExperiment(slug){
-const e=experiments.find(x=>x.slug===slug);
-if(!e)return;
-document.getElementById("home").classList.add("hidden");
-const d=document.getElementById("detail");
-d.classList.remove("hidden");
-d.innerHTML=`<button class="back" onclick="goHome()">← All Experiments</button>
-<h2>Experiment ${e.number}</h2>
-<h1>${e.title}</h1>
-<section><h3>Aim</h3>${e.aim}</section>
-<section><h3>Apparatus Required</h3>${e.apparatus}</section>
-<section><h3>Theory</h3>${e.theory}</section>
-${e.diagram ? `<section><h3>Diagram</h3><img src="${e.diagram}" alt="${e.title} diagram" style="width:100%;max-width:600px;height:auto;"></section>` : ""}
-<section><h3>Procedure</h3><ol>${e.procedure.map(x=>`<li>${x}</li>`).join("")}</ol></section>
-<section><h3>Observations</h3>${e.observation}</section>
-<section><h3>Result</h3>${e.result}</section>
-<section><h3>Viva Questions and Answers</h3>${e.viva.map(v=>`<div class="card"><b>Q. ${v[0]}</b><p>${v[1]}</p></div>`).join("")}</section>
-<button onclick="copyLink('${e.slug}')">Copy Experiment Link</button>`;
-history.pushState({}, "", "?experiment="+e.slug);
-window.scrollTo(0,0);
+  document.querySelectorAll(".filter").forEach(b => {
+    b.classList.remove("active");
+  });
+
+  button.classList.add("active");
+  render();
 }
 
-function goHome(){
-document.getElementById("detail").classList.add("hidden");
-document.getElementById("home").classList.remove("hidden");
-history.pushState({}, "", location.pathname);
-window.scrollTo(0,0);
+function render() {
+  const query = document.getElementById("search").value.toLowerCase();
+
+  const filtered = experiments.filter(e => {
+    const matchesSearch =
+      (e.title + " " + e.intro + " " + e.category)
+      .toLowerCase().includes(query);
+
+    const matchesCategory =
+      activeFilter === "All" || e.category === activeFilter;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  const list = document.getElementById("list");
+
+  if (!filtered.length) {
+    list.innerHTML = `
+      <div class="section">
+        <h2>No experiments found</h2>
+        <p>Try another instrument name or search term.</p>
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(e => `
+    <article class="card">
+      <div class="card-top">
+        <span class="num">EXPERIMENT ${e.number} · ${e.category.toUpperCase()}</span>
+        <div class="icon-tile">${e.icon}</div>
+      </div>
+
+      <h3>${e.title}</h3>
+      <p>${e.intro}</p>
+
+      <div class="card-actions">
+        <button onclick="openExperiment('${e.slug}')">
+          Explore Experiment →
+        </button>
+        <button class="secondary" onclick="copyLink('${e.slug}')">
+          Copy QR Link
+        </button>
+      </div>
+    </article>
+  `).join("");
 }
 
-function copyLink(slug){
-const url=location.origin+location.pathname+"?experiment="+slug;
-if(navigator.clipboard && window.isSecureContext){
-navigator.clipboard.writeText(url).then(()=>alert("Experiment link copied!"));
-}else{
-prompt("Copy this experiment link:",url);
-}
+function makeTable(table) {
+  return `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            ${table.headers.map(h => `<th>${h}</th>`).join("")}
+          </tr>
+        </thead>
+        <tbody>
+          ${table.rows.map(row => `
+            <tr>
+              ${row.map(value => `
+                <td>${value === "" ? '<span class="blank">—</span>' : value}</td>
+              `).join("")}
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
 
-function loadRoute(){
-const slug=new URLSearchParams(location.search).get("experiment");
-if(slug)openExperiment(slug);
+function makeViva(questions) {
+  return questions.map((v, i) => `
+    <div class="viva">
+      <b>Q${i + 1}. ${v[0]}</b>
+      <p><strong>Answer:</strong> ${v[1]}</p>
+    </div>
+  `).join("");
 }
-window.addEventListener("popstate",()=>{
-document.getElementById("detail").classList.add("hidden");
-document.getElementById("home").classList.remove("hidden");
-const slug=new URLSearchParams(location.search).get("experiment");
-if(slug)openExperiment(slug);
+
+function openExperiment(slug) {
+  const e = experiments.find(x => x.slug === slug);
+  if (!e) return;
+
+  document.getElementById("home").classList.add("hidden");
+
+  const detail = document.getElementById("detail");
+  detail.classList.remove("hidden");
+
+  detail.innerHTML = `
+    <button class="back" onclick="goHome()">← Back to Experiments</button>
+
+    <div class="detail-head">
+      <div class="eyebrow">EXPERIMENT ${e.number} · ${e.category}</div>
+      <h1>${e.icon} ${e.title}</h1>
+      <p>${e.intro}</p>
+      <div class="tag-row">
+        <span class="tag">Beginner Friendly</span>
+        <span class="tag">Practical Guide</span>
+        <span class="tag">Instrumentation Engineering</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="kicker">Part 1 · Know your instrument</div>
+      <h2>What exactly is ${e.title.includes("RTD") ? "an RTD" :
+        e.title.includes("Thermistor") ? "a thermistor" :
+        e.title.includes("Thermocouple") ? "a thermocouple" :
+        e.title.includes("Orifice") ? "an orifice plate" :
+        e.title.includes("Venturi") ? "a Venturi tube" :
+        e.title.includes("Capacitive") ? "a capacitive level sensor" :
+        e.title.includes("Diaphragm") ? "a diaphragm" :
+        "an Ostwald viscometer"}?</h2>
+      <div class="definition">${e.what}</div>
+
+      <h3>Why is it used?</h3>
+      <p>${e.why}</p>
+
+      <h3>Types / Classification</h3>
+      <ul>${e.types.map(t => `<li>${t}</li>`).join("")}</ul>
+    </div>
+
+    <div class="section">
+      <div class="kicker">Part 2 · Understand the science</div>
+      <h2>Detailed Theory</h2>
+      <p>${e.theory}</p>
+
+      <div class="understanding">
+        <b>Remember:</b><br>
+        First understand the sensing principle, then connect it to the measured
+        quantity and the output shown by the instrument.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="kicker">Formula reference</div>
+      <h2>Important Formula</h2>
+      <div class="formula">
+        <span class="formula-label">Formula box</span>
+        ${e.formula}
+      </div>
+      <h3>Meaning of symbols</h3>
+      <p>${e.variables}</p>
+    </div>
+
+    <div class="section">
+      <div class="kicker">Part 3 · Practical setup</div>
+      <h2>Aim</h2>
+      <p>${e.intro}</p>
+
+      <h3>Apparatus Required</h3>
+      <ul>${e.apparatus.map(a => `<li>${a}</li>`).join("")}</ul>
+    </div>
+
+    <div class="section">
+      <div class="kicker">Circuit / setup reference</div>
+      <h2>Diagram</h2>
+      <div class="diagram-space">
+        <div class="symbol">✎</div>
+        <strong>Place your practical diagram here</strong>
+        <small>
+          Add the original circuit diagram or setup diagram from your
+          practical notebook in this space. Keep all labels and connections
+          clearly visible.
+        </small>
+      </div>
+      <div class="diagram-caption">
+        Fig. ${e.number} — ${e.title}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="kicker">Part 4 · Laboratory procedure</div>
+      <h2>Standard Operating Procedure (SOP)</h2>
+      <p class="muted">
+        Follow the steps in order. Use the actual laboratory apparatus
+        and the instructions given by your faculty.
+      </p>
+      <ol>${e.sop.map(s => `<li>${s}</li>`).join("")}</ol>
+
+      <div class="note">
+        <strong>Safety reminder:</strong>
+        Do not exceed the equipment's specified temperature or pressure.
+        Switch off the supply before changing electrical connections.
+        Follow your laboratory instructor's safety instructions.
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="kicker">Part 5 · Record your readings</div>
+      <h2>Observation Table</h2>
+      <p>${e.observation}</p>
+      ${makeTable(e.table)}
+    </div>
+
+    <div class="section">
+      <div class="kicker">Part 6 · Working out the result</div>
+      <h2>Calculation</h2>
+      <p>${e.calculation}</p>
+
+      <h3>Result</h3>
+      <div class="definition">${e.result}</div>
+
+      <h3>Conclusion</h3>
+      <p>${e.conclusion}</p>
+    </div>
+
+    <div class="section">
+      <div class="kicker">Part 7 · Revision corner</div>
+      <h2>Viva Questions and Answers
+        <span style="color:#f4d18b;font-size:13px;font-weight:500">
+          (Just for Reference)
+        </span>
+      </h2>
+      <p class="muted">
+        These questions are provided only for revision and reference.
+        Prepare the complete experiment and follow your faculty's guidance.
+      </p>
+      ${makeViva(e.viva)}
+    </div>
+
+    <div class="section">
+      <h2>Keep Learning!</h2>
+      <p class="muted">
+        You have completed this experiment guide. Revise the working
+        principle, formula, diagram, SOP and observations before your practical.
+      </p>
+      <button onclick="copyLink('${e.slug}')">Copy This Experiment Link</button>
+      <button class="secondary" onclick="goHome()">Explore Other Experiments</button>
+    </div>
+  `;
+
+  history.pushState({}, "", "?experiment=" + slug);
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  document.getElementById("detail").classList.add("hidden");
+  document.getElementById("home").classList.remove("hidden");
+
+  history.pushState({}, "", location.pathname);
+  window.scrollTo(0, 0);
+}
+
+function copyLink(slug) {
+  const url = location.origin + location.pathname + "?experiment=" + slug;
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(url)
+      .then(() => alert("Experiment link copied successfully!"))
+      .catch(() => prompt("Copy this experiment link:", url));
+  } else {
+    prompt("Copy this experiment link:", url);
+  }
+}
+
+function loadRoute() {
+  const slug = new URLSearchParams(location.search).get("experiment");
+
+  if (slug) {
+    openExperiment(slug);
+  }
+}
+
+window.addEventListener("popstate", () => {
+  const slug = new URLSearchParams(location.search).get("experiment");
+
+  if (slug) {
+    openExperiment(slug);
+  } else {
+    document.getElementById("detail").classList.add("hidden");
+    document.getElementById("home").classList.remove("hidden");
+    window.scrollTo(0, 0);
+  }
 });
+
 render();
 loadRoute();
+
 </script>
 </body>
 </html>
