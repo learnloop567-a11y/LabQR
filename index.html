@@ -877,21 +877,25 @@ function openExperiment(slug) {
     </div>
 
     <div class="section">
-      <div class="kicker">Circuit / setup reference</div>
-      <h2>Diagram</h2>
-      <div class="diagram-space">
-        <div class="symbol">✎</div>
-        <strong>Place your practical diagram here</strong>
-        <small>
-          Add the original circuit diagram or setup diagram from your
-          practical notebook in this space. Keep all labels and connections
-          clearly visible.
-        </small>
-      </div>
-      <div class="diagram-caption">
-        Fig. ${e.number} — ${e.title}
-      </div>
-    </div>
+  <div class="kicker">Circuit / setup reference</div>
+  <h2>Experiment Diagram</h2>
+
+  <p class="muted">
+    Digital and notebook-style diagrams for practical understanding.
+  </p>
+
+  <img
+    src="${e.slug}.png"
+    alt="${e.title} experiment diagram"
+    style="display:block;width:100%;max-width:850px;height:auto;margin:18px auto;border-radius:14px;border:2px solid #b9d9e5;background:#fff;"
+  />
+
+  <p class="diagram-note">
+    Note: These are illustrative learning diagrams.
+    Refer to your laboratory manual for exact connections.
+  </p>
+</div>
+
 
     <div class="section">
       <div class="kicker">Part 4 · Laboratory procedure</div>
